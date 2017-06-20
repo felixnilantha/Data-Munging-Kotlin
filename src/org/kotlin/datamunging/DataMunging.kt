@@ -4,20 +4,25 @@ import java.io.File
 import io.kotlintest.specs.StringSpec
 import io.kotlintest.matchers.shouldEqual
 
-
+// this comment was left before refactoring
 /// this is the code before refactring will be commited for reference purpose to
-/// whome need to understand lamda 
+/// whome need to understand lamda
+
+//======= refactored code
 class DataMunging : StringSpec() {
 	init {
 		
-		val lamda: () -> Unit = {
-			val lines: List<String> = File("weather.dat").readLines().drop(2).take(30)
-			val splitlines: List <WeatherEntry> = lines.map { it.replace("*", "").split(Regex(" +")) }
+		"Find day with min temperature" {
+			val entry : WeatherEntry? = File("weather.dat")
+					.readLines()
+					.drop(2)
+					.take(30)
+					.map { it.replace("*", "").split(Regex(" +")) }
 					.map { WeatherEntry(it[1], it[2].toInt(), it[3].toInt()) }
-			val entry: WeatherEntry? =splitlines.minBy { it.max - it.min }
-			entry!!.day shouldEqual "14"
+					.minBy { it.max - it.min }
+			entry!!.day shouldEqual "14" 
 		}
-		"Find day with minimum temperature".invoke(lamda)
+		
 	}
 }
 
