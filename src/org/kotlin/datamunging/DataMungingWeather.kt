@@ -9,7 +9,7 @@ import io.kotlintest.matchers.shouldEqual
 /// whome need to understand lamda
 
 //======= refactored code
-class DataMunging : StringSpec() {
+class DataMungingWeatherTests : StringSpec() {
 	init {
 		
 		"Find day with min temperature" {
@@ -20,8 +20,11 @@ class DataMunging : StringSpec() {
 					.map { it.replace("*", "").split(Regex(" +")) }
 					.map { WeatherEntry(it[1], it[2].toInt(), it[3].toInt()) }
 					.minBy { it.max - it.min }
-			entry!!.day shouldEqual "14" 
+			
+			entry?.day shouldEqual "14" 
 		}
+		
+		
 		
 	}
 }
